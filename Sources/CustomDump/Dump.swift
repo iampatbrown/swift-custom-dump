@@ -140,6 +140,7 @@ public func customDump<T, TargetStream>(
         visitedItems.insert(item)
         dumpChildren(of: mirror, prefix: "\(typeName(mirror.subjectType))(", suffix: ")")
       }
+      visitedItems.remove(item)
 
     case (_, .collection?):
       dumpChildren(of: mirror, prefix: "[", suffix: "]", { $0.label = "[\($1)]" })
