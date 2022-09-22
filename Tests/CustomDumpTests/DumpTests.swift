@@ -66,8 +66,33 @@ final class DumpTests: XCTestCase {
       )
       """
     )
+      
+    let repeated = RepeatedUser(user: user, repeated: user, wrapped: WrappedUser(user: user))
+    dump = ""
+    customDump(repeated, to: &dump)
+    XCTAssertNoDifference(
+      dump,
+      """
+      RepeatedUser(
+        user: UserClass(
+          id: 42,
+          name: "Blob"
+        ),
+        repeated: UserClass(
+          id: 42,
+          name: "Blob"
+        ),
+        wrapped: WrappedUser(
+          user: UserClass(
+            id: 42,
+            name: "Blob"
+          )
+        )
+      )
+      """
+    )
   }
-
+    
   func testCollection() {
     let users = [
       User(

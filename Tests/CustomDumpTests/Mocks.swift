@@ -33,6 +33,16 @@ class UserClass {
   }
 }
 
+struct WrappedUser {
+  var user: UserClass
+}
+
+struct RepeatedUser {
+  var user: UserClass
+  var repeated: UserClass
+  var wrapped: WrappedUser
+}
+
 enum Enum {
   case foo
   case bar(Int)
