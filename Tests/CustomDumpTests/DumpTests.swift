@@ -92,7 +92,63 @@ final class DumpTests: XCTestCase {
       """
     )
   }
-    
+
+  func testSubclass() {
+    var dump = ""
+    customDump(UserEmptySubclass(id: 42, name: "Blob"), to: &dump)
+    XCTAssertNoDifference(
+      dump,
+      """
+      UserEmptySubclass(
+        id: 42,
+        name: "Blob"
+      )
+      """
+    )
+
+    dump = ""
+    customDump(
+      UserSubclass(
+        id: 42,
+        name: "Blob",
+        email: "blob@pointfree.co"
+      ),
+      to: &dump
+    )
+    XCTAssertNoDifference(
+      dump,
+      """
+      UserSubclass(
+        id: 42,
+        name: "Blob",
+        email: "blob@pointfree.co"
+      )
+      """
+    )
+
+    dump = ""
+    customDump(
+      UserSubclassSubclass(
+        id: 42,
+        name: "Blob",
+        email: "blob@pointfree.co",
+        password: "bl0bisawesome!"
+      ),
+      to: &dump
+    )
+    XCTAssertNoDifference(
+      dump,
+      """
+      UserSubclassSubclass(
+        id: 42,
+        name: "Blob",
+        email: "blob@pointfree.co",
+        password: "bl0bisawesome!"
+      )
+      """
+    )
+  }
+
   func testCollection() {
     let users = [
       User(

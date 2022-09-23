@@ -138,7 +138,17 @@ public func customDump<T, TargetStream>(
         out.write("\(typeName(mirror.subjectType))(↩︎)")
       } else {
         visitedItems.insert(item)
-        dumpChildren(of: mirror, prefix: "\(typeName(mirror.subjectType))(", suffix: ")")
+        var superclassMirror = mirror.superclassMirror
+        var children = Array(mirror.children)
+        while let mirror = superclassMirror {
+          children.insert(contentsOf: mirror.children, at: 0)
+          superclassMirror = mirror.superclassMirror
+        }
+        dumpChildren(
+          of: Mirror(value, children: children),
+          prefix: "\(typeName(mirror.subjectType))(",
+          suffix: ")"
+        )
       }
       visitedItems.remove(item)
 

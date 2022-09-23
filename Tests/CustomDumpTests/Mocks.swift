@@ -43,6 +43,24 @@ struct RepeatedUser {
   var wrapped: WrappedUser
 }
 
+class UserEmptySubclass: UserClass {}
+
+class UserSubclass: UserClass {
+  var email: String
+  init(id: Int, name: String, email: String) {
+    self.email = email
+    super.init(id: id, name: name)
+  }
+}
+
+class UserSubclassSubclass: UserSubclass {
+  var password: String
+  init(id: Int, name: String, email: String, password: String) {
+    self.password = password
+    super.init(id: id, name: name, email: email)
+  }
+}
+
 enum Enum {
   case foo
   case bar(Int)
